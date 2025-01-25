@@ -1,0 +1,45 @@
+.table td,
+.table th {
+  text-align: center;
+  vertical-align: middle; /* Para centrar verticalmente */
+  background-color: #212529; 
+}
+
+tr {
+  background-color: #212529;
+}
+
+h2 {
+  color: #fff;
+}
+
+th {
+  color: #fff;
+}
+
+td {
+  color:#fff;
+}
+
+/* Estilo para la imagen en pantalla completa */
+.fullscreen-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.fullscreen-image img {
+  max-width: 90%;
+  max-height: 90%;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+

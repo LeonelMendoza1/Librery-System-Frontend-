@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2>Lista de Libros</h2>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Portada</th>
+        <th>Título del Libro</th>
+        <th>Autor</th>
+        <th>ISBN</th>
+        <th>Año de Publicación</th>
+        <th>Género</th>
+        <th>Préstamo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <!-- Columna para la imagen -->
+        <td>
+          <img
+            [src]="book.imageUrl"
+            alt="{{ book.title }}"
+            style="width: 70px; height: 95px; object-fit: contain; cursor: pointer;"
+            (click)="showFullImage(book.imageUrl)"
+          />
+        </td>
+        <!-- Otras columnas con datos del libro -->
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.publicationYear }}</td>
+        <td>{{ book.genre }}</td>
+        <td>
+          <button
+            *ngIf="book.available && !isBorrowed(book.id)"
+            class="btn btn-success"
+            (click)="borrowBook(book.id)"
+          >
+            Obtener
+          </button>
+          <span *ngIf="!book.available && !isBorrowed(book.id)" class="text-danger">
+            No disponible
+          </span>
+          <button
+            *ngIf="isBorrowed(book.id)"
+            class="btn btn-danger"
+            (click)="returnBook(book.id)"
+          >
+            Devolver
+          </button>
+        </td>        
+      </tr>
+    </tbody>
+  </table>
+  <div
+    class="fullscreen-image"
+    *ngIf="isImageVisible"
+    (click)="hideFullImage()"
+  >
+    <img [src]="selectedImage" alt="Portada del libro" />
+  </div>
+</div>

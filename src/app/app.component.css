@@ -1,0 +1,39 @@
+.container{
+  background-color: #212529; /* Cambia a tu color deseado */
+}
+
+.main-content {
+    background-color: #212529; /* Cambia a tu color deseado */
+    min-height: 100vh; /* Asegura que cubra toda la altura de la ventana */
+  }
+
+ /* Fondo verde y bordes personalizados para el navbar */
+.custom-navbar {
+    background-color: #28a745; /* Color verde */
+    border: 2px solid #155724; /* Borde verde más oscuro */
+    border-radius: 30px; /* Bordes redondeados opcionales */
+    padding: 15px;
+    margin-left: auto; 
+    margin-right: auto;
+    max-width: 90%; /* No permita que toque los extremos */
+  }
+  
+  /* Ajustes al texto del navbar */
+.custom-navbar .nav-link {
+    color: #ffffff; /* Texto blanco */
+}
+  
+.custom-navbar .nav-link:hover {
+    color: #c3e6cb; /* Texto blanco con tono verde al pasar el mouse */
+}
+  
+  /* Botones dentro del navbar */
+.custom-navbar .btn {
+    color: #ffffff;
+    background-color: #155724; /* Fondo verde oscuro */
+    border: none;
+}
+  
+.custom-navbar .btn:hover {
+    background-color: #19692c; /* Fondo más oscuro al pasar el mouse */
+} 

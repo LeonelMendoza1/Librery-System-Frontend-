@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Mis Libros Prestados</h2>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let borrow of borrowedBooks">
+      <div class="card h-100">
+        <img [src]="borrow.book.imageUrl" class="card-img-top" [alt]="borrow.book.title" style="height: 250px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">{{ borrow.book.title }}</h5>
+          <p class="card-text">
+            <strong>Autor:</strong> {{ borrow.book.author }}<br>
+            <strong>ISBN:</strong> {{ borrow.book.isbn }}<br>
+            <strong>Año:</strong> {{ borrow.book.publicationYear }}<br>
+            <strong>Género:</strong> {{ borrow.book.genre }}
+          </p>
+          <button class="btn btn-danger w-100" (click)="returnBook(borrow.book.id)">Devolver</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
