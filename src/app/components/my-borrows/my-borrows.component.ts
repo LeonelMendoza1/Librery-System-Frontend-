@@ -3,6 +3,8 @@ import { Book } from 'src/app/models/Book';
 import { AuthService } from 'src/app/services/auth.service';
 import { BorrowService } from 'src/app/services/borrow.service';
 import { Borrow } from 'src/app/models/Borrow';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 
 @Component({
@@ -49,5 +51,26 @@ export class MyBorrowsComponent implements OnInit{
         },
       });
     }
+  }
+
+  generatePDF(): void {
+    const doc = new jsPDF();
+    doc.text('Lista de Libros Prestados', 20, 10);
+
+    const tableData = this.borrowedBooks.map(borrow => [
+      borrow.book.title,
+      borrow.book.author,
+      borrow.book.isbn,
+      borrow.book.publicationYear,
+      borrow.book.genre
+    ]);
+
+    autoTable(doc, {
+      head: [['Título', 'Autor', 'ISBN', 'Año', 'Género']],
+      body: tableData,
+      startY: 20
+    });
+
+    doc.save('Mis_Libros_Prestados.pdf');
   }
 }

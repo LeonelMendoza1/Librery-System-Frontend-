@@ -44,6 +44,47 @@
   </div>
 </div>
 
+<!-- Modal para editar un libro existente -->
+<div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editBookModalLabel">Editar Libro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editBookForm" (ngSubmit)="updateBook()">
+          <div class="mb-3">
+            <label for="editTitle" class="form-label">Título</label>
+            <input type="text" id="editTitle" class="form-control" formControlName="title" required />
+          </div>
+          <div class="mb-3">
+            <label for="editAuthor" class="form-label">Autor</label>
+            <input type="text" id="editAuthor" class="form-control" formControlName="author" required />
+          </div>
+          <div class="mb-3">
+            <label for="editIsbn" class="form-label">ISBN</label>
+            <input type="text" id="editIsbn" class="form-control" formControlName="isbn" required />
+          </div>
+          <div class="mb-3">
+            <label for="editPublicationYear" class="form-label">Año de Publicación</label>
+            <input type="number" id="editPublicationYear" class="form-control" formControlName="publicationYear" required />
+          </div>
+          <div class="mb-3">
+            <label for="editGenre" class="form-label">Género</label>
+            <input type="text" id="editGenre" class="form-control" formControlName="genre" required />
+          </div>
+          <div class="mb-3">
+            <label for="editImageUrl" class="form-label">URL de la Imagen</label>
+            <input type="url" id="editImageUrl" class="form-control" formControlName="imageUrl" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-100" [disabled]="editBookForm.invalid">Actualizar Libro</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <table class="table table-striped table-bordered">
       <thead class="thead-dark">
@@ -75,8 +116,8 @@
           <td>{{ book.publicationYear }}</td>
           <td>{{ book.genre }}</td>
           <td>
-            <button class="btn btn-warning">Editar</button>
-            <button class="btn btn-danger">Eliminar</button>
+            <button class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#editBookModal" (click)="openEditModal(book)">Editar</button>
+            <button class="btn btn-danger" (click)="confirmDelete(book.id)">Eliminar</button>
           </td>
         </tr>
       </tbody>

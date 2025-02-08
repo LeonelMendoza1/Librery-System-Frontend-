@@ -11,7 +11,7 @@ interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth/login';
+  private apiUrl = 'https://library-system-backend-production.up.railway.app/api/auth/login';
   // Estado del rol del usuario
   private userRoleSubject = new BehaviorSubject<string | null>(this.getUserRole());
 
@@ -53,7 +53,7 @@ export class AuthService {
     }
     if (token) {
       // Realiza una llamada al backend para informar el logout
-      this.http.post('http://localhost:8080/api/auth/logout', {}, {
+      this.http.post('https://library-system-backend-production.up.railway.app/api/auth/logout', {}, {
         headers: { Authorization: `Bearer ${token}` }
       }).subscribe({
         next: () => {
@@ -74,7 +74,7 @@ export class AuthService {
   }
 
   register(registerData: { firstName: string; lastName: string; email: string; password: string }): Observable<{ message: string }> {
-    const apiUrl = 'http://localhost:8080/api/auth/register';
+    const apiUrl = 'https://library-system-backend-production.up.railway.app/api/auth/register';
     return this.http.post<{ message: string }>(apiUrl, registerData);
   }  
 }

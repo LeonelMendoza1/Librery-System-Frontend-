@@ -9,7 +9,7 @@ import { Borrow } from '../models/Borrow';
   providedIn: 'root'
 })
 export class BorrowService {
-  private apiUrl = 'http://localhost:8080/api/borrow';
+  private apiUrl = 'https://library-system-backend-production.up.railway.app/api/borrow';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

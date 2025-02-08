@@ -18,6 +18,8 @@ export class AdminDashboardComponent implements OnInit{
   userRole: string = '';
   private userRoleSubscription: Subscription | null = null; // Suscripción al observable del rol
   newBookForm: FormGroup;
+  editBookForm: FormGroup;
+  selectedBookId: number | null = null;
 
   constructor(private booksService: BookService, private authService: AuthService, private fb: FormBuilder) {
     this.newBookForm = this.fb.group({
@@ -27,6 +29,17 @@ export class AdminDashboardComponent implements OnInit{
     publicationYear: ['', [Validators.required, Validators.min(1000), Validators.max(new Date().getFullYear())]],
     genre: ['', Validators.required],
     imageUrl: ['', [Validators.required, Validators.pattern('https?://.+')]],
+    });
+    this.editBookForm = this.fb.group({
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      isbn: ['', Validators.required],
+      publicationYear: [
+        '',
+        [Validators.required, Validators.min(1000), Validators.max(new Date().getFullYear())],
+      ],
+      genre: ['', Validators.required],
+      imageUrl: ['', [Validators.required, Validators.pattern('https?://.+')]],
     });
   }
 
@@ -51,6 +64,56 @@ export class AdminDashboardComponent implements OnInit{
         },
       });
     }
+  }
+
+  openEditModal(book: Book): void {
+    this.selectedBookId = book.id; // Guardar ID del libro
+    this.editBookForm.patchValue(book); // Cargar datos en el formulario
+  
+  }
+
+  updateBook(): void {
+    if (!this.selectedBookId || this.editBookForm.invalid) return;
+  
+    const updatedBook = this.editBookForm.value;
+    this.booksService.updateBook(this.selectedBookId, updatedBook).subscribe({
+      next: (book) => {
+        // Actualizar el array de libros con los nuevos datos
+        const index = this.books.findIndex(b => b.id === this.selectedBookId);
+        if (index !== -1) this.books[index] = book;
+  
+        // Cerrar el modal
+        const modalElement = document.getElementById('editBookModal');
+        if (modalElement) {
+          modalElement.classList.remove('show');
+          modalElement.style.display = 'none';
+          document.body.classList.remove('modal-open');
+          const backdrop = document.querySelector('.modal-backdrop');
+          if (backdrop) backdrop.remove();
+        }
+      },
+      error: (err) => {
+        console.error('Error al actualizar el libro:', err);
+      },
+    });
+  }
+
+  confirmDelete(bookId: number): void {
+    if (confirm('¿Estás seguro de que deseas eliminar este libro?')) {
+      this.deleteBook(bookId);
+    }
+  }
+
+  deleteBook(bookId: number): void {
+    this.booksService.deleteBook(bookId).subscribe({
+      next: () => {
+        // Eliminar el libro de la lista localmente
+        this.books = this.books.filter(book => book.id !== bookId);
+      },
+      error: (err) => {
+        console.error('Error al eliminar el libro:', err);
+      },
+    });
   }
   
   ngOnInit(): void {

@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class BookService {
 
-  private apiUrl = 'http://localhost:8080/api/books'; // Cambia la URL según corresponda
+  private apiUrl = 'https://library-system-backend-production.up.railway.app/api/books';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -21,6 +21,21 @@ export class BookService {
     const token = this.authService.getAuthToken();
     return this.http.post<Book>(this.apiUrl, book,{
       headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+
+  updateBook(bookId: number, updatedBook: Book): Observable<Book> {
+    const token = this.authService.getAuthToken();
+    return this.http.put<Book>(`${this.apiUrl}/${bookId}`, updatedBook,{
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+
+  deleteBook(bookId: number): Observable<string> {
+    const token = this.authService.getAuthToken();
+    return this.http.delete<string>(`${this.apiUrl}/${bookId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      responseType: 'text' as 'json' // <-- Esto evita el error de "Unexpected token 'L'"
     });
   }
 }

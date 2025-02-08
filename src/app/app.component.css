@@ -37,3 +37,16 @@
 .custom-navbar .btn:hover {
     background-color: #19692c; /* Fondo más oscuro al pasar el mouse */
 } 
+
+.navbar-logo {
+  height: 45px;  /* Tamaño fijo del logo */
+  width: auto;   /* Mantiene la proporción */
+  object-fit: contain;
+}
+
+.navbar-brand {
+  display: flex; /* Asegura que el logo no expanda el navbar */
+  align-items: center; /* Centra verticalmente el logo */
+  padding: 0; /* Evita relleno extra */
+  height: 45px; /* Mantiene la altura del navbar */
+}

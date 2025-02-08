@@ -6,10 +6,13 @@
   background-color: #212529; 
 }
 
-table {
-  background-color: #212529;
-}
 .container {
+  min-height: 100vh; /* Asegura que el contenedor cubra toda la altura */
+  overflow: auto; /* Evita cortes si hay más contenido */
+  padding-bottom: 20px; /* Evita el problema de espacio en blanco */
+}
+
+table {
   background-color: #212529;
 }
 
